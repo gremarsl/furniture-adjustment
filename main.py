@@ -16,9 +16,6 @@ class InputObject(object):
     e6 = (300, 0)
     e7 = (0, 0)
 
-    #Circle
-    circle_r=30
-
     elist = []
     elist.extend((e1, e2,e3, e4,e5,e6,e7))
 
@@ -31,6 +28,16 @@ class InputObject(object):
     arr = []
     arr.extend((room_x_coord, room_y_coord))
 
+    # Circle
+    circle_r = 30
+
+    #Rectangle1
+    rectangle1_width = 100
+    rectangle1_height = 100
+
+    # Rectangle2
+    rectangle2_width = 10
+    rectangle2_height = 50
     def __init__(self):
         pass
 
@@ -88,18 +95,16 @@ def overlay_constraint_rectangle_rectangle(rectangle, rectangle2):
     return b
 
 
-def createRectangle(width_rectangle, height_rectangle):
+def createRectangle(input,width_rectangle, height_rectangle):
     #TODO constraint to room edges
-    max_x=350
-    max_y=500
-    min_x=0
-    min_y=0
-    x_rectangle = round(random.uniform(0, max_x), 2)
-    y_rectangle = round(random.uniform(0, max_y), 2)
-    if (x_rectangle + width_rectangle) > max_x:
-        x_rectangle = max_x- width_rectangle
-    if y_rectangle + height_rectangle > max_x:
-        y_rectangle = max_y - height_rectangle
+    xmax = np.max(input.arr)
+    ymax = np.max(input.arr)
+    x_rectangle = round(random.uniform(0, xmax), 2)
+    y_rectangle = round(random.uniform(0, ymax), 2)
+    if (x_rectangle + width_rectangle) > xmax:
+        x_rectangle = xmax- width_rectangle
+    if y_rectangle + height_rectangle > xmax:
+        y_rectangle = ymax - height_rectangle
     if (x_rectangle + width_rectangle) < 0:
         x_rectangle = 0 + width_rectangle
     if y_rectangle + height_rectangle < 0:
@@ -117,7 +122,7 @@ def createRectangle(width_rectangle, height_rectangle):
 
 def createCircle(input):
     # Create Randomness
-    xmax=np.max(input.arr)
+    xmax = np.max(input.arr)
     ymax=np.max(input.arr)
     x_circle = round(random.uniform(0, xmax), 2)
     y_circle = round(random.uniform(0, ymax), 2)
@@ -154,12 +159,13 @@ def createRoom(input):
 
 def main():
     inputObject=InputObject()
+
     fig, ax = plt.subplots(1)
 
     circle = createCircle(inputObject)
     circle2 = createCircle(inputObject)
-    rectangle = createRectangle(width_rectangle=100, height_rectangle=100)
-    rectangle2 = createRectangle(width_rectangle=10, height_rectangle=200)
+    rectangle = createRectangle(inputObject,width_rectangle=inputObject.rectangle1_width, height_rectangle=inputObject.rectangle1_height)
+    rectangle2 = createRectangle(inputObject,width_rectangle=inputObject.rectangle2_width, height_rectangle=inputObject.rectangle2_height)
 
     b = overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
 
