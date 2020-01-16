@@ -16,8 +16,21 @@ class InputObject(object):
     e6 = (300, 0)
     e7 = (0, 0)
 
-    #
+    #Circle
     circle_r=30
+
+    elist = []
+    elist.extend((e1, e2,e3, e4,e5,e6,e7))
+
+    i = 0
+    room_x_coord = []
+    room_y_coord = []
+    for element in elist:
+        room_x_coord.append(element[0])
+        room_y_coord.append(element[1])
+    arr = []
+    arr.extend((room_x_coord, room_y_coord))
+
     def __init__(self):
         pass
 
@@ -105,8 +118,8 @@ def createRectangle(width_rectangle, height_rectangle):
 def createCircle(input):
     # Create Randomness
     #TODO constraint to room
-    xmax=350
-    ymax=500
+    xmax=np.max(input.arr)
+    ymax=np.max(input.arr)
     x_circle = round(random.uniform(0, xmax), 2)
     y_circle = round(random.uniform(0, ymax), 2)
 
