@@ -117,7 +117,6 @@ def createRectangle(width_rectangle, height_rectangle):
 
 def createCircle(input):
     # Create Randomness
-    #TODO constraint to room
     xmax=np.max(input.arr)
     ymax=np.max(input.arr)
     x_circle = round(random.uniform(0, xmax), 2)
@@ -157,7 +156,6 @@ def main():
     inputObject=InputObject()
     fig, ax = plt.subplots(1)
 
-    room_x_coord,room_y_coord=createRoom(inputObject)
     circle = createCircle(inputObject)
     circle2 = createCircle(inputObject)
     rectangle = createRectangle(width_rectangle=100, height_rectangle=100)
@@ -193,13 +191,11 @@ def main():
     ax.add_patch(rectangle2)
     ax.add_patch(triangle)
 
-    arr = []
-    arr.extend((room_x_coord, room_y_coord))
-    plt.xlim(right=np.max(arr)+1)  # xmax is your value
-    plt.xlim(left=np.min(arr)-1)  # xmin is your value
-    plt.ylim(top=np.max(arr)+1)  # ymax is your value
-    plt.ylim(bottom=np.min(arr)-1)  # ymin is your value
-    plt.plot(room_x_coord,room_y_coord)
+    plt.xlim(right=np.max(inputObject.arr)+1)  # xmax is your value
+    plt.xlim(left=np.min(inputObject.arr)-1)  # xmin is your value
+    plt.ylim(top=np.max(inputObject.arr)+1)  # ymax is your value
+    plt.ylim(bottom=np.min(inputObject.arr)-1)  # ymin is your value
+    plt.plot(inputObject.room_x_coord,inputObject.room_y_coord)
     plt.plot()
 
     plt.title('Scatter plot pythonspot.com')
