@@ -184,6 +184,7 @@ def main():
     #TODO how to manage, that when generated new geometry -> every condition is checked
     triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
 
+
     ax.add_patch(circle)
     ax.add_patch(circle2)
 
