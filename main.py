@@ -38,8 +38,22 @@ class InputObject(object):
     # Rectangle2
     rectangle2_width = 10
     rectangle2_height = 50
+
+    #all Rectangles
+    angle_rectangle = 0
     def __init__(self):
         pass
+
+class Circle(object):
+
+    def __init__(self):
+        pass
+
+class Rectangle(object):
+
+    def __init__(self):
+        pass
+
 
 def overlay_constraint_rectangle_circle(rectangle, circle):
     def createLine(t1, t2):
@@ -110,13 +124,11 @@ def createRectangle(input,width_rectangle, height_rectangle):
     if y_rectangle + height_rectangle < 0:
         y_rectangle = 0 + height_rectangle
 
-    angle_rectangle = 0
-
     print("examiniation")
     print(width_rectangle)
     print(height_rectangle)
     rectangle = pat.Rectangle(xy=(x_rectangle, y_rectangle), width=width_rectangle, height=height_rectangle,
-                              angle=angle_rectangle)
+                              angle=input.angle_rectangle)
     return rectangle
 
 
