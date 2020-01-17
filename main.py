@@ -83,7 +83,23 @@ class Circle(object):
 
 class Rectangle(object):
 
-    def __init__(self):
+    def __init__(self,input,width_rectangle,height_rectangle):
+        self.width_rectangle=width_rectangle
+        self.height_rectangle=height_rectangle
+        # TODO constraint to room edges
+        xmax = np.max(input.arr)
+        ymax = np.max(input.arr)
+        self.x_rectangle = round(random.uniform(0, xmax), 2)
+        self.y_rectangle = round(random.uniform(0, ymax), 2)
+        if (self.x_rectangle + width_rectangle) > xmax:
+            x_rectangle = xmax - width_rectangle
+        if self.y_rectangle + height_rectangle > xmax:
+            self.y_rectangle = ymax - height_rectangle
+        if (self.x_rectangle + width_rectangle) < 0:
+            self.x_rectangle = 0 + width_rectangle
+        if self.y_rectangle + height_rectangle < 0:
+            self.y_rectangle = 0 + height_rectangle
+
         pass
 
 
@@ -212,7 +228,16 @@ def main():
     circleObject = Circle(inputObject, inputObject.circle_r)
     circle3 = pat.Circle(xy=(circleObject.x_circle, circleObject.y_circle), radius=circleObject.circle_r)
 
-    print("should be 3")
+    rectangleObj=Rectangle(inputObject,inputObject.rectangle1_width,inputObject.rectangle1_height)
+
+    rectangleObj2=Rectangle(inputObject,inputObject.rectangle2_width,inputObject.rectangle2_height)
+
+    rectangleobj = pat.Rectangle(xy=(rectangleObj2.x_rectangle, rectangleObj2.y_rectangle), width=rectangleObj2.width_rectangle, height=rectangleObj2.height_rectangle,
+                              angle=inputObject.angle_rectangle)
+
+    rectangleobj2 = pat.Rectangle(xy=(rectangleObj.x_rectangle, rectangleObj.y_rectangle),
+                              width=rectangleObj.width_rectangle, height=rectangleObj.height_rectangle,
+                              angle=inputObject.angle_rectangle)
 
     rectangle = createRectangle(inputObject, width_rectangle=inputObject.rectangle1_width,
                                 height_rectangle=inputObject.rectangle1_height)
@@ -249,6 +274,8 @@ def main():
     ax.add_patch(rectangle)
     ax.add_patch(rectangle2)
     ax.add_patch(triangle)
+    ax.add_patch(rectangleobj)
+    ax.add_patch(rectangleobj2)
 
     plt.xlim(right=np.max(inputObject.arr) + 1)  # xmax is your value
     plt.xlim(left=np.min(inputObject.arr) - 1)  # xmin is your value
