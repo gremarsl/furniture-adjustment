@@ -63,8 +63,8 @@ class Circle(object):
     def __init__(self, input, circle_r):
         self.circle_r = circle_r
         # Create Randomness
-        xmax = np.max(input.arr)
-        ymax = np.max(input.arr)
+        xmax = np.max(input.room_x_coord)
+        ymax = np.max(input.room_y_coord)
         self.x_circle = round(random.uniform(0, xmax), 2)
         self.y_circle = round(random.uniform(0, ymax), 2)
 
@@ -80,6 +80,8 @@ class Circle(object):
 
         pass
 
+    def __del__(self):
+        print("deleted")
 
 class Rectangle(object):
 
@@ -87,23 +89,31 @@ class Rectangle(object):
         self.width_rectangle=width_rectangle
         self.height_rectangle=height_rectangle
         # TODO constraint to room edges
-        xmax = np.max(input.arr)
-        ymax = np.max(input.arr)
-        self.x_rectangle = round(random.uniform(0, xmax), 2)
-        self.y_rectangle = round(random.uniform(0, ymax), 2)
-        if (self.x_rectangle + width_rectangle) > xmax:
-            x_rectangle = xmax - width_rectangle
-        if self.y_rectangle + height_rectangle > xmax:
-            self.y_rectangle = ymax - height_rectangle
+        self.xmax = np.max(input.room_x_coord)
+        self.ymax = np.max(input.room_y_coord)
+
+
+        self.x_rectangle = round(random.uniform(0, self.xmax), 2)
+        self.y_rectangle = round(random.uniform(0, self.ymax), 2)
+
+        #TODO adjust for every shape/ room
+        if (self.y_rectangle <= 150):
+            self.xmax=300
+
+        if (self.x_rectangle + width_rectangle) > self.xmax:
+            self.x_rectangle = self.xmax - self.width_rectangle
+        if self.y_rectangle + height_rectangle > self.xmax:
+            self.y_rectangle = self.ymax - self.height_rectangle
         if (self.x_rectangle + width_rectangle) < 0:
-            self.x_rectangle = 0 + width_rectangle
+            self.x_rectangle = 0 + self.width_rectangle
         if self.y_rectangle + height_rectangle < 0:
-            self.y_rectangle = 0 + height_rectangle
+            self.y_rectangle = 0 + self.height_rectangle
 
         pass
 
 
-def overlay_constraint_rectangle_circle(rectangle, circle):
+def overlay_constraint_rectangle_circle(rectangle, circle,rectangleObj,circleObj)->bool:
+    b=False
     def createLine(t1, t2):
         delta_x = t2[0] - t1[0]
         delta_y = t2[1] - t1[1]
@@ -121,11 +131,25 @@ def overlay_constraint_rectangle_circle(rectangle, circle):
     # solution for simplity:
     Discriminant = (-2 * xm + 2 * m * c - 2 * m * ym) ** 2 - 4 * (1 + m ** 2) * (
             xm ** 2 + c ** 2 + ym ** 2 - r ** 2 - 2 * c * ym)
-    print(Discriminant)
-    return Discriminant
+
+    while Discriminant > 0:
+        #delete the object I compared with
+        circleObj.__del__()
+        #create new object
+        inputObject=InputObject()
+        circleObj = Circle(inputObject, inputObject.circle_r)
+        circle = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
+        #compare again
+        Discriminant = overlay_constraint_rectangle_circle(rectangle, circle,rectangleObj,circleObj)
+
+    if Discriminant <=0:
+        b=True
+        print("finally True")
+    return b
 
 
 def overlay_constraint_circle_circle(c1, c2) -> float:
+    #TODO overlay constraint circle circle
     m1 = c1.get_center()
     m2 = c2.get_center()
 
@@ -134,7 +158,7 @@ def overlay_constraint_circle_circle(c1, c2) -> float:
     return distance
 
 
-def overlay_constraint_rectangle_rectangle(rectangle, rectangle2):
+def overlay_constraint_rectangle_rectangle(rectangle, rectangle2)->bool:
     b = False
 
     rectangle_blueprint = shapely.geometry.Polygon([(rectangle.get_x(), rectangle.get_y()),
@@ -218,12 +242,11 @@ def main():
 
     fig, ax = plt.subplots(1)
 
-    circle = createCircle(inputObject)
-    circleObj2 = Circle(inputObject, inputObject.circle_r)
-    circle2 = pat.Circle(xy=(circleObj2.x_circle, circleObj2.y_circle), radius=circleObj2.circle_r)
-
     circleObj = Circle(inputObject, inputObject.circle_r)
     circle = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
+
+    circleObj2 = Circle(inputObject, inputObject.circle_r)
+    circle2 = pat.Circle(xy=(circleObj2.x_circle, circleObj2.y_circle), radius=circleObj2.circle_r)
 
     circleObject = Circle(inputObject, inputObject.circle_r)
     circle3 = pat.Circle(xy=(circleObject.x_circle, circleObject.y_circle), radius=circleObject.circle_r)
@@ -240,7 +263,7 @@ def main():
                                   width=rectangleObj2.width_rectangle, height=rectangleObj2.height_rectangle,
                                   angle=inputObject.angle_rectangle)
 
-    print(rectangleObj.x_rectangle)
+    # TODO change to Object as parameters
     b = overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
 
 
@@ -248,11 +271,7 @@ def main():
         rectangle2 = createRectangle(width_rectangle=100, height_rectangle=100)
         b = overlay_constraint_rectangle_rectangle(rectangle,rectangle2)
 
-    Discriminant = overlay_constraint_rectangle_circle(rectangle, circle)
-
-    while Discriminant > 0:
-        circle = createCircle(30)
-        Discriminant = overlay_constraint_rectangle_circle(rectangle, circle)
+    overlay_constraint_rectangle_circle(rectangle, circle,rectangleObj,circleObj)
 
     distance = overlay_constraint_circle_circle(circle, circle2)
 
@@ -262,7 +281,7 @@ def main():
         distance = overlay_constraint_circle_circle(circle, circle2)
         print(distance)
 
-    # TODO how to manage, that when generated new geometry -> every condition is checked
+    # TODO manage very overlay-condition with every geometry
 
     triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
 
