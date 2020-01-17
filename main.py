@@ -136,6 +136,7 @@ def overlay_constraint_circle_circle(c1, c2) -> float:
 
 def overlay_constraint_rectangle_rectangle(rectangle, rectangle2):
     b = False
+
     rectangle_blueprint = shapely.geometry.Polygon([(rectangle.get_x(), rectangle.get_y()),
                                                     (rectangle.get_x() + rectangle.get_width(), rectangle.get_y()),
                                                     (rectangle.get_x() + rectangle.get_width(),
@@ -151,7 +152,6 @@ def overlay_constraint_rectangle_rectangle(rectangle, rectangle2):
                                                      ])
 
     if rectangle_blueprint.intersects(rectangle2_blueprint):
-        print(rectangle_blueprint.intersects(rectangle2_blueprint))
         b = True
 
     return b
@@ -228,27 +228,25 @@ def main():
     circleObject = Circle(inputObject, inputObject.circle_r)
     circle3 = pat.Circle(xy=(circleObject.x_circle, circleObject.y_circle), radius=circleObject.circle_r)
 
-    rectangleObj=Rectangle(inputObject,inputObject.rectangle1_width,inputObject.rectangle1_height)
+    rectangleObj = Rectangle(inputObject,inputObject.rectangle1_width,inputObject.rectangle1_height)
 
-    rectangleObj2=Rectangle(inputObject,inputObject.rectangle2_width,inputObject.rectangle2_height)
-
-    rectangleobj = pat.Rectangle(xy=(rectangleObj2.x_rectangle, rectangleObj2.y_rectangle), width=rectangleObj2.width_rectangle, height=rectangleObj2.height_rectangle,
-                              angle=inputObject.angle_rectangle)
-
-    rectangleobj2 = pat.Rectangle(xy=(rectangleObj.x_rectangle, rectangleObj.y_rectangle),
+    rectangle = pat.Rectangle(xy=(rectangleObj.x_rectangle, rectangleObj.y_rectangle),
                               width=rectangleObj.width_rectangle, height=rectangleObj.height_rectangle,
                               angle=inputObject.angle_rectangle)
 
-    rectangle = createRectangle(inputObject, width_rectangle=inputObject.rectangle1_width,
-                                height_rectangle=inputObject.rectangle1_height)
-    rectangle2 = createRectangle(inputObject, width_rectangle=inputObject.rectangle2_width,
-                                 height_rectangle=inputObject.rectangle2_height)
+    rectangleObj2 = Rectangle(inputObject,inputObject.rectangle2_width,inputObject.rectangle2_height)
 
+    rectangle2 = pat.Rectangle(xy=(rectangleObj2.x_rectangle, rectangleObj2.y_rectangle),
+                                  width=rectangleObj2.width_rectangle, height=rectangleObj2.height_rectangle,
+                                  angle=inputObject.angle_rectangle)
+
+    print(rectangleObj.x_rectangle)
     b = overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
+
 
     while b == True:
         rectangle2 = createRectangle(width_rectangle=100, height_rectangle=100)
-        b = overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
+        b = overlay_constraint_rectangle_rectangle(rectangle,rectangle2)
 
     Discriminant = overlay_constraint_rectangle_circle(rectangle, circle)
 
@@ -265,6 +263,7 @@ def main():
         print(distance)
 
     # TODO how to manage, that when generated new geometry -> every condition is checked
+
     triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
 
     ax.add_patch(circle)
@@ -274,8 +273,6 @@ def main():
     ax.add_patch(rectangle)
     ax.add_patch(rectangle2)
     ax.add_patch(triangle)
-    ax.add_patch(rectangleobj)
-    ax.add_patch(rectangleobj2)
 
     plt.xlim(right=np.max(inputObject.arr) + 1)  # xmax is your value
     plt.xlim(left=np.min(inputObject.arr) - 1)  # xmin is your value
