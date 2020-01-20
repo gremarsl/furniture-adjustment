@@ -1,8 +1,13 @@
 import random
 import numpy as np
+import matplotlib.patches as pat
 
 
 class Circle(object):
+    def patplot(self):
+        circle = pat.Circle(xy=(self.x_circle, self.y_circle), radius=self.circle_r)
+
+        return circle
 
     def __init__(self, input, circle_r):
         self.circle_r = circle_r

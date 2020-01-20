@@ -12,21 +12,18 @@ def main():
 
     fig, ax = plt.subplots(1)
 
-    circleArray=[]
+    circleObjectArray=[]
     rectangleArray=[]
+    circleArray=[]
     rectangleObjectArray=[]
 
     circleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
-    circleArray.append(circleObj)
-    circle = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
+    circleObjectArray.append(circleObj)
+    circleArray.append(circleObj.patplot())
 
     circleObj2 = mygeometry.Circle(inputObject, inputObject.circle_r)
-    circleArray.append(circleObj2)
-    circle2 = pat.Circle(xy=(circleObj2.x_circle, circleObj2.y_circle), radius=circleObj2.circle_r)
-
-    circleObj3= mygeometry.Circle(inputObject, inputObject.circle_r)
-    circleArray.append(circleObj3)
-    circle3 = pat.Circle(xy=(circleObj3.x_circle, circleObj3.y_circle), radius=circleObj3.circle_r)
+    circleObjectArray.append(circleObj2)
+    circleArray.append(circleObj2.patplot())
 
     rectangleObj = mygeometry.Rectangle(inputObject, inputObject.rectangle1_width, inputObject.rectangle1_height)
     rectangleObjectArray.append(rectangleObj)
@@ -42,7 +39,7 @@ def main():
                                angle=inputObject.angle_rectangle)
     rectangleArray.append(rectangle2)
 
-    # TODO manage very overlay-condition with every geometry
+    '''
     #TODO what happens in the array? if object is deleted
     for i in range(len(circleArray)):
         for j in range(i + 1, len(circleArray)):
@@ -57,16 +54,14 @@ def main():
             myconstraints.overlay_constraint_rectangle_circle(rectangle,circle)
 
     myconstraints.overlay_constraint_rectangle_circle(rectangleObj, circleObj)
-
+'''
     #triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
 
-    ax.add_patch(circle)
-    ax.add_patch(circle2)
-    ax.add_patch(circle3)
+    for element in circleArray:
+        ax.add_patch(element)
 
-    ax.add_patch(rectangle)
-    ax.add_patch(rectangle2)
-    #ax.add_patch(triangle)
+    for element in rectangleArray:
+        ax.add_patch(element)
 
     plt.xlim(right=np.max(inputObject.arr) + 1)  # xmax is your value
     plt.xlim(left=np.min(inputObject.arr) - 1)  # xmin is your value
