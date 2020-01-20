@@ -5,7 +5,7 @@ import matplotlib.patches as pat
 import shapely.geometry
 
 
-def overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleObj) -> bool:
+def overlay_constraint_rectangle_circle(rectangleObj, circleObj) -> bool:
     b = False
 
     def createLine(t1, t2):
@@ -15,14 +15,14 @@ def overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleO
         c = t1[1] - m * t1[0]
         return m, c
 
-    r = circle.get_radius()
+    r=circleObj.circle_r
 
     # TODO for every edge and line
     # P1
-    m, c = createLine((rectangle.get_x(), rectangle.get_y()),
-                      (rectangle.get_x() + rectangle.get_width(), rectangle.get_y()))
-    xm = circle.get_center()[0]
-    ym = circle.get_center()[1]
+    m, c = createLine((rectangleObj.x_rectangle, rectangleObj.y_rectangle),
+                      (rectangleObj.x_rectangle+ rectangleObj.width_rectangle, rectangleObj.y_rectangle))
+    xm=circleObj.x_circle
+    ym=circleObj.y_circle
 
     # solution for simplity:
     Discriminant = (-2 * xm + 2 * m * c - 2 * m * ym) ** 2 - 4 * (1 + m ** 2) * (
@@ -36,7 +36,7 @@ def overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleO
         circleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
         circle = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
         # compare again
-        Discriminant = overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleObj)
+        Discriminant = overlay_constraint_rectangle_circle(rectangleObj, circleObj)
 
     if Discriminant <= 0:
         b = True
@@ -44,24 +44,24 @@ def overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleO
     return b
 
 
-def overlay_constraint_circle_circle(c1, c2, circleObj, circleObj2) -> bool:
+def overlay_constraint_circle_circle(circleObj, circleObj2) -> bool:
     b = False
-    m1 = c1.get_center()
-    m2 = c2.get_center()
+    m1 = (circleObj.x_circle, circleObj.y_circle)
+    m2 = (circleObj2.x_circle, circleObj2.y_circle)
 
     distanceM1M2 = sqrt((m2[0] - m1[0]) ** 2 + (m2[1] - m1[1]) ** 2)
 
-    if abs(c1.get_radius() - c2.get_radius()) < distanceM1M2 < abs(c1.get_radius() + c2.get_radius()):
+    if abs(circleObj.circle_r - circleObj2.circle_r) < distanceM1M2 < abs(circleObj.circle_r + circleObj2.circle_r):
         # delete the object I compared with
         circleObj.__del__()
         # create new object
         inputObject = myinputobject.InputObject()
         circleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
         c1 = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
-        overlay_constraint_circle_circle(c1, c2, circleObj, circleObj2)
+        overlay_constraint_circle_circle(circleObj, circleObj2)
 
-    if (abs(c1.get_radius() - c2.get_radius()) > distanceM1M2) or (
-            distanceM1M2 > abs(c1.get_radius() + c2.get_radius())):
+    if (abs(circleObj.circle_r - circleObj2.circle_r) > distanceM1M2) or (
+            distanceM1M2 > abs(circleObj.circle_r + circleObj2.circle_r)):
         b = True
 
     return b

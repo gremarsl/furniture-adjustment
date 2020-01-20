@@ -7,29 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sympy import *
 
-def createRectangle(input, width_rectangle, height_rectangle):
-    # TODO constraint to room edges
-
-    xmax = np.max(input.arr)
-    ymax = np.max(input.arr)
-    x_rectangle = round(random.uniform(0, xmax), 2)
-    y_rectangle = round(random.uniform(0, ymax), 2)
-
-    if (x_rectangle + width_rectangle) > xmax:
-        x_rectangle = xmax - width_rectangle
-    if y_rectangle + height_rectangle > xmax:
-        y_rectangle = ymax - height_rectangle
-    if (x_rectangle + width_rectangle) < 0:
-        x_rectangle = 0 + width_rectangle
-    if y_rectangle + height_rectangle < 0:
-        y_rectangle = 0 + height_rectangle
-
-    rectangle = pat.Rectangle(xy=(x_rectangle, y_rectangle), width=width_rectangle, height=height_rectangle,
-                              angle=input.angle_rectangle)
-    return rectangle
-
-
-
 
 def main():
     inputObject = myinputobject.InputObject()
@@ -58,13 +35,11 @@ def main():
                                angle=inputObject.angle_rectangle)
 
     # TODO change to Object as parameters
-    b = myconstraints.overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
+    myconstraints.overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
 
+    myconstraints.overlay_constraint_rectangle_circle(rectangleObj, circleObj)
 
-
-    myconstraints.overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleObj)
-
-    myconstraints.overlay_constraint_circle_circle(circle, circle2, circleObj, circleObj2)
+    myconstraints.overlay_constraint_circle_circle(circleObj, circleObj2)
 
     # TODO manage very overlay-condition with every geometry
 
