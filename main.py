@@ -87,7 +87,7 @@ def main():
     while (abs(circle.get_radius() - circle2.get_radius())) < distance < (
             abs(circle.get_radius() + circle2.get_radius())):
         circle = createCircle(inputObject,30)
-        distance =constraints.overlay_constraint_circle_circle(circle, circle2,circleObj,circleObj2)
+        distance = constraints.overlay_constraint_circle_circle(circle, circle2,circleObj,circleObj2)
         print(distance)
 
     # TODO manage very overlay-condition with every geometry
