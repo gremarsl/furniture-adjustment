@@ -45,13 +45,12 @@ def overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleO
 
 def overlay_constraint_circle_circle(c1, c2, circleObj, circleObj2) -> bool:
     b = False
-    # TODO overlay constraint circle circle
     m1 = c1.get_center()
     m2 = c2.get_center()
 
     distanceM1M2 = sqrt((m2[0] - m1[0]) ** 2 + (m2[1] - m1[1]) ** 2)
 
-    while abs(c1.get_radius() - c2.get_radius()) < distanceM1M2 < abs(c1.get_radius() + c2.get_radius()):
+    if abs(c1.get_radius() - c2.get_radius()) < distanceM1M2 < abs(c1.get_radius() + c2.get_radius()):
         # delete the object I compared with
         circleObj.__del__()
         # create new object
