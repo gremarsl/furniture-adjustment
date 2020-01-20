@@ -33,22 +33,20 @@ def main():
     rectangleObjectArray.append(rectangleObj2)
     rectangleArray.append(rectangleObj2.patplot())
 
-    '''
+
     #TODO what happens in the array? if object is deleted
-    for i in range(len(circleArray)):
-        for j in range(i + 1, len(circleArray)):
-            myconstraints.overlay_constraint_circle_circle(circleArray[i], circleArray[j])
+    for i in range(len(circleObjectArray)):
+        for j in range(i + 1, len(circleObjectArray)):
+            myconstraints.overlay_constraint_circle_circle(circleObjectArray[i], circleObjectArray[j])
 
     for i in range(len(rectangleArray)):
         for j in range(i + 1, len(rectangleArray)):
             myconstraints.overlay_constraint_rectangle_rectangle(rectangleArray[i], rectangleArray[j])
 
     for rectangle in rectangleObjectArray:
-        for circle in circleArray:
+        for circle in circleObjectArray:
             myconstraints.overlay_constraint_rectangle_circle(rectangle,circle)
 
-    myconstraints.overlay_constraint_rectangle_circle(rectangleObj, circleObj)
-'''
     #triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
 
     for element in circleArray:
