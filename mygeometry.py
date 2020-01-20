@@ -4,10 +4,6 @@ import matplotlib.patches as pat
 
 
 class Circle(object):
-    def patplot(self):
-        circle = pat.Circle(xy=(self.x_circle, self.y_circle), radius=self.circle_r)
-
-        return circle
 
     def __init__(self, input, circle_r):
         self.circle_r = circle_r
@@ -34,6 +30,10 @@ class Circle(object):
 
         pass
 
+    def patplot(self):
+        circle = pat.Circle(xy=(self.x_circle, self.y_circle), radius=self.circle_r)
+
+        return circle
     def __del__(self):
         print("deleted Circle")
 
@@ -63,6 +63,13 @@ class Rectangle(object):
             self.y_rectangle = 0 + self.height_rectangle
 
         pass
+
+    def patplot(self):
+        rectangle= pat.Rectangle(xy=(self.x_rectangle, self.y_rectangle),
+                               width=self.width_rectangle, height=self.height_rectangle,
+                               angle=0)
+
+        return rectangle
 
     def __del__(self):
         print("deleted Rectangle")

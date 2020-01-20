@@ -27,17 +27,11 @@ def main():
 
     rectangleObj = mygeometry.Rectangle(inputObject, inputObject.rectangle1_width, inputObject.rectangle1_height)
     rectangleObjectArray.append(rectangleObj)
-    rectangle = pat.Rectangle(xy=(rectangleObj.x_rectangle, rectangleObj.y_rectangle),
-                              width=rectangleObj.width_rectangle, height=rectangleObj.height_rectangle,
-                              angle=inputObject.angle_rectangle)
-    rectangleArray.append(rectangle)
+    rectangleArray.append(rectangleObj.patplot())
 
     rectangleObj2 = mygeometry.Rectangle(inputObject, inputObject.rectangle2_width, inputObject.rectangle2_height)
     rectangleObjectArray.append(rectangleObj2)
-    rectangle2 = pat.Rectangle(xy=(rectangleObj2.x_rectangle, rectangleObj2.y_rectangle),
-                               width=rectangleObj2.width_rectangle, height=rectangleObj2.height_rectangle,
-                               angle=inputObject.angle_rectangle)
-    rectangleArray.append(rectangle2)
+    rectangleArray.append(rectangleObj2.patplot())
 
     '''
     #TODO what happens in the array? if object is deleted
