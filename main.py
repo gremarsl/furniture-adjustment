@@ -34,7 +34,6 @@ def main():
                                width=rectangleObj2.width_rectangle, height=rectangleObj2.height_rectangle,
                                angle=inputObject.angle_rectangle)
 
-    # TODO change to Object as parameters
     myconstraints.overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
 
     myconstraints.overlay_constraint_rectangle_circle(rectangleObj, circleObj)
@@ -43,7 +42,7 @@ def main():
 
     # TODO manage very overlay-condition with every geometry
 
-    triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
+    #triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
 
     ax.add_patch(circle)
     ax.add_patch(circle2)
@@ -51,7 +50,7 @@ def main():
 
     ax.add_patch(rectangle)
     ax.add_patch(rectangle2)
-    ax.add_patch(triangle)
+    #ax.add_patch(triangle)
 
     plt.xlim(right=np.max(inputObject.arr) + 1)  # xmax is your value
     plt.xlim(left=np.min(inputObject.arr) - 1)  # xmin is your value
