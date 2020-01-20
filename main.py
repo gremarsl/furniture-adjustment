@@ -9,6 +9,7 @@ from sympy import *
 
 def createRectangle(input, width_rectangle, height_rectangle):
     # TODO constraint to room edges
+
     xmax = np.max(input.arr)
     ymax = np.max(input.arr)
     x_rectangle = round(random.uniform(0, xmax), 2)
@@ -82,13 +83,7 @@ def main():
 
     constraints.overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleObj)
 
-    distance = constraints.overlay_constraint_circle_circle(circle, circle2, circleObj, circleObj2)
-
-    while (abs(circle.get_radius() - circle2.get_radius())) < distance < (
-            abs(circle.get_radius() + circle2.get_radius())):
-        circle = createCircle(inputObject,30)
-        distance = constraints.overlay_constraint_circle_circle(circle, circle2,circleObj,circleObj2)
-        print(distance)
+    constraints.overlay_constraint_circle_circle(circle, circle2, circleObj, circleObj2)
 
     # TODO manage very overlay-condition with every geometry
 
