@@ -1,7 +1,7 @@
 import random
-import inputobject as inputobject
+import myinputobject as myinputobject
 import mygeometry as mygeometry
-import constraints as constraints
+import myconstraints
 import matplotlib.patches as pat
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,6 +14,7 @@ def createRectangle(input, width_rectangle, height_rectangle):
     ymax = np.max(input.arr)
     x_rectangle = round(random.uniform(0, xmax), 2)
     y_rectangle = round(random.uniform(0, ymax), 2)
+
     if (x_rectangle + width_rectangle) > xmax:
         x_rectangle = xmax - width_rectangle
     if y_rectangle + height_rectangle > xmax:
@@ -28,28 +29,10 @@ def createRectangle(input, width_rectangle, height_rectangle):
     return rectangle
 
 
-def createCircle(input,radius):
-    # Create Randomness
-    xmax = np.max(input.arr)
-    ymax = np.max(input.arr)
-    x_circle = round(random.uniform(0, xmax), 2)
-    y_circle = round(random.uniform(0, ymax), 2)
 
-    if x_circle + input.circle_r > xmax:
-        x_circle = xmax - input.circle_r
-    if y_circle + input.circle_r > ymax:
-        y_circle = ymax - input.circle_r
-
-    if x_circle - input.circle_r < 0:
-        x_circle = 0 + input.circle_r
-    if y_circle - input.circle_r < 0:
-        y_circle = 0 + input.circle_r
-    circle = pat.Circle(xy=(x_circle, y_circle), radius=input.circle_r)
-    # need to exe in main: ax.add_patch(circle)
-    return circle
 
 def main():
-    inputObject = inputobject.InputObject()
+    inputObject = myinputobject.InputObject()
 
     fig, ax = plt.subplots(1)
 
@@ -75,15 +58,13 @@ def main():
                                angle=inputObject.angle_rectangle)
 
     # TODO change to Object as parameters
-    b = constraints.overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
+    b = myconstraints.overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
 
-    while b:
-        rectangle2 = createRectangle(inputObject,width_rectangle=100, height_rectangle=100)
-        b = constraints.overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
 
-    constraints.overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleObj)
 
-    constraints.overlay_constraint_circle_circle(circle, circle2, circleObj, circleObj2)
+    myconstraints.overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleObj)
+
+    myconstraints.overlay_constraint_circle_circle(circle, circle2, circleObj, circleObj2)
 
     # TODO manage very overlay-condition with every geometry
 

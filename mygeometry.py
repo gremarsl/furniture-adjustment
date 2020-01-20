@@ -3,26 +3,19 @@ import numpy as np
 
 
 class Circle(object):
-    """
-
-    def plotCircle(self):
-        print("are you running?")
-        print(self.x_circle)
-        print(self.y_circle)
-        print(self.circle_r)
-        fig, ax = plt.subplots(1)
-
-        circle= pat.Circle(xy=(self.x_circle, self.y_circle), radius=self.circle_r)
-        ax.add_patch(circle)
-    """
 
     def __init__(self, input, circle_r):
         self.circle_r = circle_r
         # Create Randomness
         xmax = np.max(input.room_x_coord)
         ymax = np.max(input.room_y_coord)
+
         self.x_circle = round(random.uniform(0, xmax), 2)
         self.y_circle = round(random.uniform(0, ymax), 2)
+
+        # TODO adjust for every shape/ room
+        if (self.y_circle <= 150):
+            self.xmax = 300
 
         if self.x_circle + input.circle_r > xmax:
             self.x_circle = xmax - input.circle_r

@@ -1,8 +1,9 @@
 from math import sqrt
-import inputobject
+import myinputobject
 import mygeometry
 import matplotlib.patches as pat
 import shapely.geometry
+
 
 def overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleObj) -> bool:
     b = False
@@ -31,7 +32,7 @@ def overlay_constraint_rectangle_circle(rectangle, circle, rectangleObj, circleO
         # delete the object I compared with
         circleObj.__del__()
         # create new object
-        inputObject = inputobject.InputObject()
+        inputObject = myinputobject.InputObject()
         circleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
         circle = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
         # compare again
@@ -54,7 +55,7 @@ def overlay_constraint_circle_circle(c1, c2, circleObj, circleObj2) -> bool:
         # delete the object I compared with
         circleObj.__del__()
         # create new object
-        inputObject = inputobject.InputObject()
+        inputObject = myinputobject.InputObject()
         circleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
         c1 = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
         overlay_constraint_circle_circle(c1, c2, circleObj, circleObj2)
@@ -84,7 +85,13 @@ def overlay_constraint_rectangle_rectangle(rectangle, rectangle2) -> bool:
                                                      ])
 
     if rectangle_blueprint.intersects(rectangle2_blueprint):
+        inputObject = myinputobject.InputObject()
         b = True
+        rectangleObj = mygeometry.Rectangle(inputObject, inputObject.rectangle1_width, inputObject.rectangle1_height)
+
+        rectangle = pat.Rectangle(xy=(rectangleObj.x_rectangle, rectangleObj.y_rectangle),
+                                  width=rectangleObj.width_rectangle, height=rectangleObj.height_rectangle,
+                                  angle=inputObject.angle_rectangle)
+        overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
 
     return b
-
