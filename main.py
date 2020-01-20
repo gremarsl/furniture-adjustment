@@ -43,7 +43,7 @@ def main():
     rectangleArray.append(rectangle2)
 
     # TODO manage very overlay-condition with every geometry
-
+    #TODO what happens in the array? if object is deleted
     for i in range(len(circleArray)):
         for j in range(i + 1, len(circleArray)):
             myconstraints.overlay_constraint_circle_circle(circleArray[i], circleArray[j])
