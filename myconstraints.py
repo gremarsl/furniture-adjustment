@@ -93,11 +93,10 @@ def overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2
     if rectangle_blueprint.intersects(rectangle2_blueprint):
         inputObject = myinputobject.InputObject()
         b = True
-        rectangleObj = mygeometry.Rectangle(inputObject, inputObject.rectangle1_width, inputObject.rectangle1_height)
+        newrectangleObj = mygeometry.Rectangle(inputObject, inputObject.rectangle1_width, inputObject.rectangle1_height)
+        furnitureObject.rectangleObjectArray.append(newrectangleObj)
+        furnitureObject.rectangleArray.append(newrectangleObj.patplot())
 
-        rectangle = pat.Rectangle(xy=(rectangleObj.x_rectangle, rectangleObj.y_rectangle),
-                                  width=rectangleObj.width_rectangle, height=rectangleObj.height_rectangle,
-                                  angle=inputObject.angle_rectangle)
-        overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2)
+        furnitureObject = overlay_constraint_rectangle_rectangle(furnitureObject,newrectangleObj, rectangle2)
 
     return furnitureObject
