@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sympy import *
 
-def main():
 
+def main():
     inputObject = myinputobject.InputObject()
 
     fig, ax = plt.subplots(1)
@@ -33,25 +33,29 @@ def main():
     print(furnitureobjects.circleObjectArray)
     print(furnitureobjects.rectangleArray)
     print(furnitureobjects.rectangleObjectArray)
-    #TODO what happens in the array? if object is deleted
+
+    # TODO what happens in the array? if object is deleted
     for i in range(len(furnitureobjects.circleObjectArray)):
         for j in range(i + 1, len(furnitureobjects.circleObjectArray)):
             print("1")
             print(furnitureobjects.circleObjectArray)
-            myconstraints.overlay_constraint_circle_circle(furnitureobjects.circleObjectArray[i], furnitureobjects.circleObjectArray[j])
+            furnitureobjects = myconstraints.overlay_constraint_circle_circle(furnitureobjects,
+                                                                              furnitureobjects.circleObjectArray[i],
+                                                                              furnitureobjects.circleObjectArray[j])
             print(furnitureobjects.circleObjectArray)
 
     for i in range(len(furnitureobjects.rectangleArray)):
         for j in range(i + 1, len(furnitureobjects.rectangleArray)):
             print("2")
-            myconstraints.overlay_constraint_rectangle_rectangle(furnitureobjects.rectangleArray[i], furnitureobjects.rectangleArray[j])
+            furnitureobjects = myconstraints.overlay_constraint_rectangle_rectangle(furnitureobjects,
+                furnitureobjects.rectangleArray[i],
+                                                                                    furnitureobjects.rectangleArray[j])
 
     for rectangle in furnitureobjects.rectangleObjectArray:
         for circle in furnitureobjects.circleObjectArray:
-            print("3")
-            myconstraints.overlay_constraint_rectangle_circle(rectangle,circle)
+            furnitureobjects = myconstraints.overlay_constraint_rectangle_circle(furnitureobjects,rectangle, circle)
 
-    #triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
+    # triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
 
     for element in furnitureobjects.circleArray:
         ax.add_patch(element)
@@ -74,4 +78,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
