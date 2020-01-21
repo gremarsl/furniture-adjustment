@@ -3,10 +3,9 @@ import myinputobject
 import mygeometry
 import matplotlib.patches as pat
 import shapely.geometry
-import main
 
 
-def overlay_constraint_rectangle_circle(rectangleObj, circleObj) -> bool:
+def overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, circleObj) -> mygeometry.FurnituresObjects:
     b = False
 
     def createLine(t1, t2):
@@ -37,17 +36,16 @@ def overlay_constraint_rectangle_circle(rectangleObj, circleObj) -> bool:
         # create new object
         inputObject = myinputobject.InputObject()
         newcircleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
-
-        circle = pat.Circle(xy=(newcircleObj.x_circle, newcircleObj.y_circle), radius=newcircleObj.circle_r)
+        furnitureObject.circleObjectArray.append(newcircleObj)
+        furnitureObject.circleArray.append(newcircleObj.patplot())
         # compare again
-        overlay_constraint_rectangle_circle(rectangleObj, newcircleObj)
+        overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, newcircleObj)
 
     if Discriminant <= 0:
         b = True
-    return b
+    return furnitureObject
 
-
-def overlay_constraint_circle_circle(circleObj, circleObj2) -> bool:
+def overlay_constraint_circle_circle(furnitureObject, circleObj, circleObj2) -> mygeometry.FurnituresObjects:
 
     b = False
     m1 = (circleObj.x_circle, circleObj.y_circle)
@@ -61,18 +59,21 @@ def overlay_constraint_circle_circle(circleObj, circleObj2) -> bool:
         print("del-fun Circle ")
         # create new object
         inputObject = myinputobject.InputObject()
-        circleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
-        c1 = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
-        overlay_constraint_circle_circle(circleObj, circleObj2)
+
+        newcircleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
+        furnitureObject.circleObjectArray.append(newcircleObj)
+        furnitureObject.circleArray.append(newcircleObj.patplot())
+
+        furnitureObject = overlay_constraint_circle_circle(furnitureObject,newcircleObj, circleObj2)
 
     if (abs(circleObj.circle_r - circleObj2.circle_r) > distanceM1M2) or (
             distanceM1M2 > abs(circleObj.circle_r + circleObj2.circle_r)):
         b = True
 
-    return b
+    return furnitureObject
 
 
-def overlay_constraint_rectangle_rectangle(rectangle, rectangle2) -> bool:
+def overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2) -> mygeometry.FurnituresObjects:
     b = False
 
     rectangle_blueprint = shapely.geometry.Polygon([(rectangle.get_x(), rectangle.get_y()),
@@ -97,6 +98,6 @@ def overlay_constraint_rectangle_rectangle(rectangle, rectangle2) -> bool:
         rectangle = pat.Rectangle(xy=(rectangleObj.x_rectangle, rectangleObj.y_rectangle),
                                   width=rectangleObj.width_rectangle, height=rectangleObj.height_rectangle,
                                   angle=inputObject.angle_rectangle)
-        overlay_constraint_rectangle_rectangle(rectangle, rectangle2)
+        overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2)
 
-    return b
+    return furnitureObject
