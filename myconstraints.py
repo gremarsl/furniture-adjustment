@@ -6,7 +6,6 @@ import shapely.geometry
 
 
 def overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, circleObj) -> mygeometry.FurnituresObjects:
-    b = False
 
     def createLine(t1, t2):
         delta_x = t2[0] - t1[0]
@@ -28,7 +27,6 @@ def overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, circleObj)
     Discriminant = (-2 * xm + 2 * m * c - 2 * m * ym) ** 2 - 4 * (1 + m ** 2) * (
             xm ** 2 + c ** 2 + ym ** 2 - r ** 2 - 2 * c * ym)
 
-
     while Discriminant > 0:
 
         circleObj.__del__()
@@ -42,12 +40,11 @@ def overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, circleObj)
         overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, newcircleObj)
 
     if Discriminant <= 0:
-        b = True
+        pass
     return furnitureObject
 
 def overlay_constraint_circle_circle(furnitureObject, circleObj, circleObj2) -> mygeometry.FurnituresObjects:
 
-    b = False
     m1 = (circleObj.x_circle, circleObj.y_circle)
     m2 = (circleObj2.x_circle, circleObj2.y_circle)
 
@@ -68,13 +65,11 @@ def overlay_constraint_circle_circle(furnitureObject, circleObj, circleObj2) -> 
 
     if (abs(circleObj.circle_r - circleObj2.circle_r) > distanceM1M2) or (
             distanceM1M2 > abs(circleObj.circle_r + circleObj2.circle_r)):
-        b = True
-
+        pass
     return furnitureObject
 
 
 def overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2) -> mygeometry.FurnituresObjects:
-    b = False
 
     rectangle_blueprint = shapely.geometry.Polygon([(rectangle.get_x(), rectangle.get_y()),
                                                     (rectangle.get_x() + rectangle.get_width(), rectangle.get_y()),
@@ -92,7 +87,6 @@ def overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2
 
     if rectangle_blueprint.intersects(rectangle2_blueprint):
         inputObject = myinputobject.InputObject()
-        b = True
         newrectangleObj = mygeometry.Rectangle(inputObject, inputObject.rectangle1_width, inputObject.rectangle1_height)
         furnitureObject.rectangleObjectArray.append(newrectangleObj)
         furnitureObject.rectangleArray.append(newrectangleObj.patplot())
