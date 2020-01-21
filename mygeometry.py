@@ -2,6 +2,12 @@ import random
 import numpy as np
 import matplotlib.patches as pat
 
+class FurnituresObjects(object):
+    def __init__(self):
+        self.circleObjectArray = []
+        self.rectangleArray = []
+        self.circleArray = []
+        self.rectangleObjectArray = []
 
 class Circle(object):
 
@@ -34,8 +40,10 @@ class Circle(object):
         circle = pat.Circle(xy=(self.x_circle, self.y_circle), radius=self.circle_r)
 
         return circle
+
     def __del__(self):
-        print("deleted Circle")
+
+        pass
 
 
 class Rectangle(object):
@@ -65,11 +73,11 @@ class Rectangle(object):
         pass
 
     def patplot(self):
-        rectangle= pat.Rectangle(xy=(self.x_rectangle, self.y_rectangle),
-                               width=self.width_rectangle, height=self.height_rectangle,
-                               angle=0)
+        rectangle = pat.Rectangle(xy=(self.x_rectangle, self.y_rectangle),
+                                  width=self.width_rectangle, height=self.height_rectangle,
+                                  angle=0)
 
         return rectangle
 
     def __del__(self):
-        print("deleted Rectangle")
+        pass
