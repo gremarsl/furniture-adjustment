@@ -3,6 +3,7 @@ import myinputobject
 import mygeometry
 import matplotlib.patches as pat
 import shapely.geometry
+from  main import main
 
 
 def overlay_constraint_rectangle_circle(rectangleObj, circleObj) -> bool:
@@ -28,23 +29,27 @@ def overlay_constraint_rectangle_circle(rectangleObj, circleObj) -> bool:
     Discriminant = (-2 * xm + 2 * m * c - 2 * m * ym) ** 2 - 4 * (1 + m ** 2) * (
             xm ** 2 + c ** 2 + ym ** 2 - r ** 2 - 2 * c * ym)
 
+
     while Discriminant > 0:
         # delete the object I compared with
+
         circleObj.__del__()
+        print("del-fun Circle was called:")
         # create new object
         inputObject = myinputobject.InputObject()
         circleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
+        #furnitureobjects.circleArray.append(circleObj.patplot())
         circle = pat.Circle(xy=(circleObj.x_circle, circleObj.y_circle), radius=circleObj.circle_r)
         # compare again
-        Discriminant = overlay_constraint_rectangle_circle(rectangleObj, circleObj)
+        overlay_constraint_rectangle_circle(rectangleObj, circleObj)
 
     if Discriminant <= 0:
         b = True
-        print("finally True")
     return b
 
 
 def overlay_constraint_circle_circle(circleObj, circleObj2) -> bool:
+
     b = False
     m1 = (circleObj.x_circle, circleObj.y_circle)
     m2 = (circleObj2.x_circle, circleObj2.y_circle)
