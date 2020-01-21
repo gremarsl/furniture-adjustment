@@ -2,12 +2,18 @@ import random
 import numpy as np
 import matplotlib.patches as pat
 
+
 class FurnituresObjects(object):
+
     def __init__(self):
         self.circleObjectArray = []
         self.rectangleArray = []
         self.circleArray = []
         self.rectangleObjectArray = []
+
+    def __del__(self):
+        pass
+
 
 class Circle(object):
 
