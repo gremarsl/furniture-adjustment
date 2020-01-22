@@ -21,20 +21,16 @@ def main():
     furnitureobjects.circleObjectArray.append(circleObj2)
     furnitureobjects.circleArray.append(circleObj2.patplot())
 
-    rectangleObj = mygeometry.Rectangle(inputObject, inputObject.rectangle1_width, inputObject.rectangle1_height)
-    furnitureobjects.rectangleObjectArray.append(rectangleObj)
-    furnitureobjects.rectangleArray.append(rectangleObj.patplot())
+    for rectangle in inputObject.rectangleTupleList:
+        print(rectangle[0])
+        print(rectangle[1])
 
-    rectangleObj2 = mygeometry.Rectangle(inputObject, inputObject.rectangle2_width, inputObject.rectangle2_height)
-    furnitureobjects.rectangleObjectArray.append(rectangleObj2)
-    furnitureobjects.rectangleArray.append(rectangleObj2.patplot())
+        rectangleObj = mygeometry.Rectangle(inputObject, rectangle[0], rectangle[1])
+        furnitureobjects.rectangleObjectArray.append(rectangleObj)
+        furnitureobjects.rectangleArray.append(rectangleObj.patplot())
 
-    print(furnitureobjects.circleArray)
-    print(furnitureobjects.circleObjectArray)
-    print(furnitureobjects.rectangleArray)
-    print(furnitureobjects.rectangleObjectArray)
 
-    # TODO what happens in the array? if object is deleted
+
     for i in range(len(furnitureobjects.circleObjectArray)):
         for j in range(i + 1, len(furnitureobjects.circleObjectArray)):
             print("1")
