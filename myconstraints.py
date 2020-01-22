@@ -91,6 +91,6 @@ def overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2
         furnitureObject.rectangleObjectArray.append(newrectangleObj)
         furnitureObject.rectangleArray.append(newrectangleObj.patplot())
 
-        furnitureObject = overlay_constraint_rectangle_rectangle(furnitureObject,newrectangleObj, rectangle2)
+        furnitureObject = overlay_constraint_rectangle_rectangle(furnitureObject,newrectangleObj.patplot(), rectangle2)
 
     return furnitureObject
