@@ -36,12 +36,12 @@ def main():
         for j in range(i + 1, len(furnitureobjects.rectangleArray)):
             print("2")
             furnitureobjects = myconstraints.overlay_constraint_rectangle_rectangle(furnitureobjects,
-                furnitureobjects.rectangleArray[i],
+                                                                                    furnitureobjects.rectangleArray[i],
                                                                                     furnitureobjects.rectangleArray[j])
 
     for rectangle in furnitureobjects.rectangleObjectArray:
         for circle in furnitureobjects.circleObjectArray:
-            furnitureobjects = myconstraints.overlay_constraint_rectangle_circle(furnitureobjects,rectangle, circle)
+            furnitureobjects = myconstraints.overlay_constraint_rectangle_circle(furnitureobjects, rectangle, circle)
 
     # triangle = pat.Polygon(xy=[[0, 0.3], [0.3, 0.3], [0.15, 0.4]], closed=True)
 
