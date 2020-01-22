@@ -23,13 +23,15 @@ class InputObject(object):
     # Circle
     circle_r = 30
 
+    rectangleTupleList= [(150,200),(20,90)]
+    circleList=[30,15]
     # Rectangle1
-    rectangle1_width = 100
-    rectangle1_height = 100
+    rectangle1_width = 150
+    rectangle1_height = 200
 
     # Rectangle2
-    rectangle2_width = 10
-    rectangle2_height = 50
+    rectangle2_width = 20
+    rectangle2_height = 90
 
     # all Rectangles
     angle_rectangle = 0
