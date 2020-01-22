@@ -13,23 +13,15 @@ def main():
 
     furnitureobjects = mygeometry.FurnituresObjects()
 
-    circleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
-    furnitureobjects.circleObjectArray.append(circleObj)
-    furnitureobjects.circleArray.append(circleObj.patplot())
-
-    circleObj2 = mygeometry.Circle(inputObject, inputObject.circle_r)
-    furnitureobjects.circleObjectArray.append(circleObj2)
-    furnitureobjects.circleArray.append(circleObj2.patplot())
-
     for rectangle in inputObject.rectangleTupleList:
-        print(rectangle[0])
-        print(rectangle[1])
-
         rectangleObj = mygeometry.Rectangle(inputObject, rectangle[0], rectangle[1])
         furnitureobjects.rectangleObjectArray.append(rectangleObj)
         furnitureobjects.rectangleArray.append(rectangleObj.patplot())
 
-
+    for circle in inputObject.circleList:
+        circleObj = mygeometry.Circle(inputObject, circle)
+        furnitureobjects.circleObjectArray.append(circleObj)
+        furnitureobjects.circleArray.append(circleObj.patplot())
 
     for i in range(len(furnitureobjects.circleObjectArray)):
         for j in range(i + 1, len(furnitureobjects.circleObjectArray)):
