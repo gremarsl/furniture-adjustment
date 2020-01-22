@@ -23,7 +23,10 @@ class InputObject(object):
     # Circle
     circle_r = 30
 
+    #Tuple: (Rectangle-Width, Rectangle-Hight)
     rectangleTupleList= [(150,200),(20,90)]
+
+    #List of Circles with their Radius
     circleList=[30,15]
     # Rectangle1
     rectangle1_width = 150
