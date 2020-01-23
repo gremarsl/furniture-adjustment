@@ -58,7 +58,7 @@ def main():
     plt.plot(inputObject.room_x_coord, inputObject.room_y_coord)
     plt.plot()
 
-    plt.title('Scatter plot pythonspot.com')
+    plt.title('Your Room could look like this:')
     plt.xlabel('x')
     plt.ylabel('y')
     plt.show()
