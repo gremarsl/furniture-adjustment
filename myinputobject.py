@@ -24,20 +24,11 @@ class InputObject(object):
     circle_r = 30
 
     #Tuple: (Rectangle-Width, Rectangle-Hight)
-    rectangleTupleList= [(150,200),(20,90),(20,90),(40,60)]
+    rectangleTupleList = [(150,200),(20,90),(20,90),(40,60)]
 
     #List of Circles with their Radius
     circleList=[15]
-    # Rectangle1
-    rectangle1_width = 150
-    rectangle1_height = 200
 
-    # Rectangle2
-    rectangle2_width = 20
-    rectangle2_height = 90
-
-    # all Rectangles
-    angle_rectangle = 0
 
     def __init__(self):
         pass

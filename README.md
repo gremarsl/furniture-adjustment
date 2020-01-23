@@ -11,6 +11,10 @@ Therefore I want to build a solution for me to struggle less in the future (Pyth
 ## APPLICATION
 This application is written in Python.
 
+### HOW TO USE IT
+1. You have to enter the edges of your room. (see: myinputobject.py)\
+2. Add your furniture dimensions in e.g. rectangleTupleList 
+
 ## UTILIZED INTERPRETER 
 Python Interpreter: v3.6
 
