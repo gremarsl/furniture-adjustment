@@ -11,14 +11,14 @@ Therefore I want to build a solution for me to struggle less in the furture (Pyt
 APPLICATION
 This application is written in Python.
 
-Utilized Interpreter 
+UTILIZED INTERPRETER 
 Python Interpreter: v3.6
 
 CONTRIBUTION
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. 
 Thank you for helping and improving this work. 
 
-Licence 
+LICENCE 
 Standard Github license. Feel free to view and fork this project for personal use.
 
 1. Fork the Project
@@ -29,10 +29,9 @@ Standard Github license. Feel free to view and fork this project for personal us
 
 
 
-Get in contact 
+GET IN CONTACT 
 Github - gremarsl
 E-Mail: startwitharduino@gmail.com
 
 
-Best regards
   
