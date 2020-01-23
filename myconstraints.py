@@ -1,12 +1,10 @@
 from math import sqrt
 import myinputobject
 import mygeometry
-import matplotlib.patches as pat
 import shapely.geometry
 
 
-def overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, circleObj) -> mygeometry.FurnituresObjects:
-
+def overlay_constraint_rectangle_circle(furnitureObject, rectangleObj, circleObj) -> mygeometry.FurnituresObjects:
     def createLine(t1, t2):
         delta_x = t2[0] - t1[0]
         delta_y = t2[1] - t1[1]
@@ -14,37 +12,42 @@ def overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, circleObj)
         c = t1[1] - m * t1[0]
         return m, c
 
-    r=circleObj.circle_r
+    r = circleObj.circle_r
 
     # TODO for every edge and line
     # P1
     m, c = createLine((rectangleObj.x_rectangle, rectangleObj.y_rectangle),
-                      (rectangleObj.x_rectangle+ rectangleObj.width_rectangle, rectangleObj.y_rectangle))
-    xm=circleObj.x_circle
-    ym=circleObj.y_circle
+                      (rectangleObj.x_rectangle + rectangleObj.width_rectangle, rectangleObj.y_rectangle))
+    xm = circleObj.x_circle
+    ym = circleObj.y_circle
 
     # solution for simplity:
     Discriminant = (-2 * xm + 2 * m * c - 2 * m * ym) ** 2 - 4 * (1 + m ** 2) * (
             xm ** 2 + c ** 2 + ym ** 2 - r ** 2 - 2 * c * ym)
 
     while Discriminant > 0:
-
         circleObj.__del__()
         print("del-fun Circle was called:")
         # create new object
         inputObject = myinputobject.InputObject()
-        newcircleObj = mygeometry.Circle(inputObject, inputObject.circle_r)
+        newcircleObj = mygeometry.Circle(inputObject, circleObj.circle_r)
+
+        #check if rectangle ok:
+
+        #if ok add to array:
         furnitureObject.circleObjectArray.append(newcircleObj)
         furnitureObject.circleArray.append(newcircleObj.patplot())
         # compare again
-        overlay_constraint_rectangle_circle(furnitureObject,rectangleObj, newcircleObj)
+
+        # TODO exit recursion when correct once!!
+        overlay_constraint_rectangle_circle(furnitureObject, rectangleObj, newcircleObj)
 
     if Discriminant <= 0:
         pass
     return furnitureObject
 
-def overlay_constraint_circle_circle(furnitureObject, circleObj, circleObj2) -> mygeometry.FurnituresObjects:
 
+def overlay_constraint_circle_circle(furnitureObject, circleObj, circleObj2) -> mygeometry.FurnituresObjects:
     m1 = (circleObj.x_circle, circleObj.y_circle)
     m2 = (circleObj2.x_circle, circleObj2.y_circle)
 
@@ -61,7 +64,7 @@ def overlay_constraint_circle_circle(furnitureObject, circleObj, circleObj2) -> 
         furnitureObject.circleObjectArray.append(newcircleObj)
         furnitureObject.circleArray.append(newcircleObj.patplot())
 
-        furnitureObject = overlay_constraint_circle_circle(furnitureObject,newcircleObj, circleObj2)
+        furnitureObject = overlay_constraint_circle_circle(furnitureObject, newcircleObj, circleObj2)
 
     if (abs(circleObj.circle_r - circleObj2.circle_r) > distanceM1M2) or (
             distanceM1M2 > abs(circleObj.circle_r + circleObj2.circle_r)):
@@ -69,8 +72,7 @@ def overlay_constraint_circle_circle(furnitureObject, circleObj, circleObj2) -> 
     return furnitureObject
 
 
-def overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2) -> mygeometry.FurnituresObjects:
-
+def overlay_constraint_rectangle_rectangle(furnitureObject, rectangle, rectangle2) -> mygeometry.FurnituresObjects:
     rectangle_blueprint = shapely.geometry.Polygon([(rectangle.get_x(), rectangle.get_y()),
                                                     (rectangle.get_x() + rectangle.get_width(), rectangle.get_y()),
                                                     (rectangle.get_x() + rectangle.get_width(),
@@ -87,10 +89,10 @@ def overlay_constraint_rectangle_rectangle(furnitureObject,rectangle, rectangle2
 
     if rectangle_blueprint.intersects(rectangle2_blueprint):
         inputObject = myinputobject.InputObject()
-        newrectangleObj = mygeometry.Rectangle(inputObject,rectangle.get_width(),rectangle.get_width())
+        newrectangleObj = mygeometry.Rectangle(inputObject, rectangle.get_width(), rectangle.get_width())
         furnitureObject.rectangleObjectArray.append(newrectangleObj)
         furnitureObject.rectangleArray.append(newrectangleObj.patplot())
 
-        furnitureObject = overlay_constraint_rectangle_rectangle(furnitureObject,newrectangleObj.patplot(), rectangle2)
+        furnitureObject = overlay_constraint_rectangle_rectangle(furnitureObject, newrectangleObj.patplot(), rectangle2)
 
     return furnitureObject

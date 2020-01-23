@@ -56,7 +56,7 @@ class Rectangle(object):
     def __init__(self, input, width_rectangle, height_rectangle):
         self.width_rectangle = width_rectangle
         self.height_rectangle = height_rectangle
-        # TODO constraint to room edges
+
         self.xmax = np.max(input.room_x_coord)
         self.ymax = np.max(input.room_y_coord)
 
