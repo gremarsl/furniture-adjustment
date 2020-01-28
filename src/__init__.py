@@ -2,7 +2,6 @@ from src import mygeometry, myconstraints, myinputobject
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 def main():
     inputObject = myinputobject.InputObject()
 
