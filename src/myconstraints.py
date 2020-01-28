@@ -1,6 +1,5 @@
 from math import sqrt
-import myinputobject
-import mygeometry
+from src import mygeometry, myinputobject
 import shapely.geometry
 
 

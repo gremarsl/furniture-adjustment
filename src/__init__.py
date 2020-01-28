@@ -1,9 +1,6 @@
-import myinputobject
-import mygeometry
-import myconstraints
+from src import mygeometry, myconstraints, myinputobject
 import matplotlib.pyplot as plt
 import numpy as np
-from sympy import *
 
 
 def main():
